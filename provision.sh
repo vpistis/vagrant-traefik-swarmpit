@@ -11,7 +11,11 @@ sudo apt-get -y upgrade
 sudo usermod -aG docker vagrant
 sudo service docker start
 docker version
-echo "Start Swarmpit..."
+
+echo "Deploy Traefik cluster..."
+docker stack deploy -c ./docker-compose.yml traefik
+
+echo "Deploy Swarmpit cluster..."
 git clone https://github.com/swarmpit/swarmpit -b master
 docker stack deploy -c swarmpit/docker-compose.yml swarmpit
 
