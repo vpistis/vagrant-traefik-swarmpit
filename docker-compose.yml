@@ -39,7 +39,7 @@ services:
       - --providers.docker=true
       - --providers.docker.watch=true
       - --providers.docker.exposedbydefault=true
-      - --providers.docker.swarmMode=false
+      - --providers.docker.swarmMode=true
       - --providers.docker.swarmModeRefreshSeconds=5
       - --providers.docker.network=public
       - --providers.file.directory=/configs/
