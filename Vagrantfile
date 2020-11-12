@@ -85,9 +85,6 @@ Vagrant.configure("2") do |config|
       if auto 
         i.vm.provision "shell", inline: "docker swarm init --advertise-addr #{manager_ip}"
         i.vm.provision "shell", inline: "docker swarm join-token -q worker > /vagrant/token"
-        i.vm.provision "file", source: "docker-compose.yml", destination: "/docker-compose.yml", privileged: true
-        i.vm.provision "file", source: "./certs/", destination: "/certs/", privileged: true
-        i.vm.provision "file", source: "./traefik_configs/", destination: "/traefik_configs/", privileged: true
         i.vm.provision "shell", path: "./post-provision-manager.sh"
       end
     end 
