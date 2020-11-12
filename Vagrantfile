@@ -71,11 +71,11 @@ Vagrant.configure("2") do |config|
       i.vm.network "private_network", ip: "#{manager_ip}"
       # Public with DHCP
       i.vm.network "public_network"
-      config.vm.network "forwarded_port", guest: 80, host: 80
-      config.vm.network "forwarded_port", guest: 8080, host: 8080
-      config.vm.network "forwarded_port", guest: 888, host: 888
-      config.vm.network "forwarded_port", guest: 443, host: 443
-      config.vm.network "forwarded_port", guest: 8082, host: 8082
+      i.vm.network "forwarded_port", guest: 80, host: 80, auto_correct: true
+      i.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: true
+      i.vm.network "forwarded_port", guest: 888, host: 888, auto_correct: true
+      i.vm.network "forwarded_port", guest: 443, host: 443, auto_correct: true
+      i.vm.network "forwarded_port", guest: 8082, host: 8082, auto_correct: true
       # Proxy
       if not http_proxy.to_s.strip.empty?
         i.proxy.http     = http_proxy
