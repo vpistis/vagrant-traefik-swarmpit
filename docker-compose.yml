@@ -37,8 +37,8 @@ services:
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik_configs/:/configs:ro
-      - ./certs:/certs:ro
+      - /traefik_configs/:/configs:ro
+      - /certs:/certs:ro
     networks:
       - public
 networks:

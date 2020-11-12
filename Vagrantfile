@@ -107,8 +107,8 @@ Vagrant.configure("2") do |config|
       if auto
         i.vm.provision "shell", inline: "docker swarm join --advertise-addr #{instance[:ip]} --listen-addr #{instance[:ip]}:2377 --token `cat /vagrant/token` #{manager_ip}:2377"
         i.vm.provision "file", source: "docker-compose.yml", destination: "/docker-compose.yml"
-        i.vm.provision "file", source: "./certs/*", destination: "/certs/"
-        i.vm.provision "file", source: "./traefik_configs/*", destination: "/traefik_configs/"
+        i.vm.provision "file", source: "./certs/", destination: "/certs/"
+        i.vm.provision "file", source: "./traefik_configs/", destination: "/traefik_configs/"
         i.vm.provision "shell", path: "./post-provision-manager.sh"
       end
     end 
