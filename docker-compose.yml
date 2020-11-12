@@ -1,0 +1,48 @@
+version: '3.3'
+services:
+##################### WEB Server (Private behind Traefik) #####################
+  web:
+    image: nginxdemos/hello
+    networks:
+      - public
+      - internal
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=public
+      - traefik.http.services.https.loadbalancer.server.port=80
+      - traefik.http.routers.http.entrypoints=http
+      - traefik.http.routers.http.rule=Host(`172.168.10.2`)
+##################### TRAEFIK (Public) #####################
+  reverse-proxy:
+    image: traefik:v2.3.2
+    restart: always
+    depends_on:
+      - web
+    command:
+      - --log.level=INFO
+      - --accesslog=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=true
+      - --providers.docker.swarmMode=false
+      - --providers.docker.swarmModeRefreshSeconds=5
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
+      - --providers.docker.network=public
+      - --providers.file.directory=/configs/
+      - --providers.file.watch=true
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik_configs/:/configs:ro
+      - ./certs:/certs:ro
+    networks:
+      - public
+networks:
+  public:
+    external: true
+  internal:
+    external: false
