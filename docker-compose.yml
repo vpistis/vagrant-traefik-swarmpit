@@ -29,7 +29,7 @@ services:
 ##################### TRAEFIK (Public) #####################
   reverse-proxy:
     image: traefik:v2.3.2
-    depends_on:
+#    depends_on:
     command:
       - --log.level=INFO
       - --accesslog=true
