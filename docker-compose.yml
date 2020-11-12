@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 services:
 ##################### WEB Server (Private behind Traefik) #####################
   web:
@@ -30,7 +30,6 @@ services:
   reverse-proxy:
     image: traefik:v2.3.2
     depends_on:
-      - web
     command:
       - --log.level=INFO
       - --accesslog=true
