@@ -77,7 +77,7 @@ Vagrant.configure("2") do |config|
         i.proxy.https    = https_proxy
         i.proxy.no_proxy = no_proxy
       end
-      i.vm.provision "shell", path: "./provision.sh"
+      i.vm.provision "shell", path: "./provision-manager.sh"
       if File.file?("./hosts") 
         i.vm.provision "file", source: "hosts", destination: "/tmp/hosts"
         i.vm.provision "shell", inline: "cat /tmp/hosts >> /etc/hosts", privileged: true
@@ -99,7 +99,7 @@ Vagrant.configure("2") do |config|
         i.proxy.https    = https_proxy
         i.proxy.no_proxy = no_proxy
       end
-      i.vm.provision "shell", path: "./provision.sh"
+      i.vm.provision "shell", path: "./provision-workers.sh"
       if File.file?("./hosts") 
         i.vm.provision "file", source: "hosts", destination: "/tmp/hosts"
         i.vm.provision "shell", inline: "cat /tmp/hosts >> /etc/hosts", privileged: true
